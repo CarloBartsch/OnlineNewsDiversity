@@ -1,0 +1,7 @@
+"C:\Users\Carlo Bartsch\AppData\Local\Programs\Python\Python39\python.exe" "C:\Users\Carlo Bartsch\Documents\Diversity of News\Skripte\Login\spiegel_login_download.py"
+"C:\Users\Carlo Bartsch\AppData\Local\Programs\Python\Python39\python.exe" "C:\Users\Carlo Bartsch\Documents\Diversity of News\Skripte\Login\zeit_login_download.py"
+"C:\Users\Carlo Bartsch\AppData\Local\Programs\Python\Python39\python.exe" "C:\Users\Carlo Bartsch\Documents\Diversity of News\Skripte\Login\bild_login_download.py"
+"C:\Users\Carlo Bartsch\AppData\Local\Programs\Python\Python39\python.exe" "C:\Users\Carlo Bartsch\Documents\Diversity of News\Skripte\Login\sz_login_download.py"
+"C:\Users\Carlo Bartsch\AppData\Local\Programs\Python\Python39\python.exe" "C:\Users\Carlo Bartsch\Documents\Diversity of News\Skripte\Login\stern_login_download.py"
+"C:\Users\Carlo Bartsch\AppData\Local\Programs\Python\Python39\python.exe" "C:\Users\Carlo Bartsch\Documents\Diversity of News\Skripte\Login\faz_login_download.py"
+"C:\Users\Carlo Bartsch\AppData\Local\Programs\Python\Python39\python.exe" "C:\Users\Carlo Bartsch\Documents\Diversity of News\Skripte\Login\welt_login_download.py"

@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 #from selenium.webdriver.common.keys import Keys
-PATH = "C:\Program Files (x86)\chromedriver.exe"
+PATH = "C:\DRIVERS\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 ###IMPORT
 
@@ -76,8 +76,11 @@ locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
 today = date.today()
 
 print("Today's date:", today)
+
 d2 = today.strftime("%e. %B %Y")
 print(str(d2))
+d3 = today.strftime("%Y%m%d")
+print(d3)
 
 driver.get('https://sueddeutsche.de')
 
@@ -95,9 +98,8 @@ try:
     driver.find_element_by_xpath('/html/body/div[2]/header/div[2]/div[1]/div[2]/div/a[2]').click()
 except:
 
-    driver.get('https://www.sueddeutsche.de/')
-    pages = ['','/page/2','/page/3','/page/4','/page/5','/page/6','/page/7','/page/8','/page/9','/page/10','/page/11','/page/12','/page/13','/page/14','/page/15']
 
+    pages = ['','/page/2','/page/3','/page/4','/page/5','/page/6','/page/7','/page/8','/page/9','/page/10','/page/11','/page/12','/page/13','/page/14','/page/15']
     for element in pages:
 
         link ='https://www.sueddeutsche.de/news'+element
@@ -109,31 +111,33 @@ except:
 
         try:
             data=[]
-            with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/sz/sz_linklist_login.csv',encoding='utf-8') as f:
+            with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/sz/sz_linklist_login.csv',encoding='utf-8') as f:
                     reader = csv.reader(f, delimiter=',')
                     for row in reader:
                             data.append(row)
 
         except:
-            with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/sz/sz_linklist_login.csv','w', newline='',encoding='utf-8') as f:
+            with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/sz/sz_linklist_login.csv','w', newline='',encoding='utf-8') as f:
                         writer = csv.writer(f,delimiter=',')
-                        writer.writerow(['Headline','Date','Link'])
+                        writer.writerow(['ID','Headline','Date','Link'])
             data=[]
 
+        running_number = 1
         print(data)
         href_column = [x[2] for x in data]
         for link in body.find_all('a'):
                         href = link.get('href')
                         print(href)
-
+                        
                         for span in link.find_all("em",{"class":"entrylist__title"}):
 
-                                    name = span.text
-                                    name = replaceMultiple(name,["'",'[',']','.',':','?','!','"','/',',','.'],"")
-                                    print(name)
 
-                                    row_contents =[name,d2,href]
-                                    row_contents_error =['error',d2,'error']
+                                    name = span.text
+                                    name = replaceMultiple(name,["'",'[',']','.',':','?','!','"','/',',','.','-','“','„','«','»'],"")                                   
+                                    print(name)
+                                    identifier = str(d3)+str(running_number)
+                                    row_contents =[identifier,name,d2,href]
+                                    row_contents_error =[name,'error',href]
                                     if href in href_column:
                                         print('old')
 
@@ -142,11 +146,11 @@ except:
                                                 #zu Liste hinzufügen
                                         try:
 
-                                            with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/sz/sz_linklist_login.csv','a',newline='',encoding="utf-8") as f:
+                                            with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/sz/sz_linklist_login.csv','a',newline='',encoding="utf-8") as f:
                                                         writer = csv.writer(f)
                                                         writer.writerow(row_contents)
                                         except:
-                                            with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/sz/sz_linklist_login.csv','a',newline='',encoding="utf-8") as f:
+                                            with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/sz/sz_linklist_login.csv','a',newline='',encoding="utf-8") as f:
                                                         writer = csv.writer(f)
                                                         writer.writerow(row_contents_error)
                                         try:
@@ -154,22 +158,22 @@ except:
                                             html_id = driver.page_source
                                             print(text_from_html(html_id))
                                             article = text_from_html(html_id)
-                                            with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Files/sz/Test/%s.txt' % name,'w', encoding="utf-8") as e:
-                                                    e.write(article)
-
+                                            with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Files/sz/Login/'+identifier+'.txt','w', encoding="utf-8") as e:
+                                                e.write(article)
+                                                running_number = running_number +1
 
                                         except Exception as e:
                                             print(e)
                                             try:
-                                                with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/sz/sz_error.csv','a',newline='',encoding="utf-8") as file_error:
+                                                with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/sz/sz_error_login.csv','a',newline='',encoding="utf-8") as file_error:
                                                     writer_error = csv.writer(file_error)
                                                     writer_error.writerow(name,d2,href,'no')
                                             except:
-                                                with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/sz/sz_error.csv','w', newline='',encoding='utf-8') as file_error:
+                                                with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/sz/sz_error_login.csv','w', newline='',encoding='utf-8') as file_error:
                                                     writer_error = csv.writer(file_error,delimiter=',')
                                                     writer_error.writerow(['Headline','Date','Link','Download'])
                                                     writer_error.writerow([name,d2,href,'no'])
                                             continue
-
-
 driver.close()
+
+

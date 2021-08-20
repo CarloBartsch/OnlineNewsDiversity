@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 #from selenium.webdriver.common.keys import Keys
-PATH = "C:\Program Files (x86)\chromedriver.exe"
+PATH = "C:\DRIVERS\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 
 ###IMPORT
@@ -80,18 +80,20 @@ print("Today's date:", today)
 
 d2 = today.strftime("%e. %B %Y")
 print(str(d2))
+d3 = today.strftime("%Y%m%d")
+print(d3)
 
 try:
     data=[]
-    with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/stern/stern_linklist_login.csv',encoding='utf-8') as f:
+    with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/stern/stern_linklist_login.csv',encoding='utf-8') as f:
             reader = csv.reader(f, delimiter=',')
             for row in reader:
                     data.append(row)
 
 except:
-    with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/stern/stern_linklist_login.csv','w', newline='',encoding='utf-8') as f:
+    with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/stern/stern_linklist_login.csv','w', newline='',encoding='utf-8') as f:
                 writer = csv.writer(f,delimiter=',')
-                writer.writerow(['Headline','Date','Link'])
+                writer.writerow(['ID','Headline','Date','Link'])
     data=[]
 
 #Stern
@@ -110,22 +112,25 @@ driver.get("https://www.stern.de/news/")
 
 html = driver.page_source
 soup = bs(html, 'html.parser')
-print(soup.title)
 body = soup.find('body')
-body = soup.find("main",{"class":"page__main js-page__main"})
+
+
+running_number = 1
 name_column = [x[0] for x in data]
 for link in body.find_all('a'):
                 href = link.get('href')
                 print(href)
                 name = link.text
+
+
                 name = os.linesep.join([s for s in name.splitlines() if s])
                 name = name.partition('\n')[0]
                 name = os.linesep.join([s for s in name.splitlines() if s])
                 name = replaceMultiple(name,["'",'[',']','.',':','?','!','"','/',',','.','-','“','„','«','»'],"")
                 print(name)
-
-                row_contents =[name,d2,href]
-                row_contents_error =['error',d2,'error']
+                identifier = str(d3)+str(running_number)
+                row_contents =[identifier,name,d2,href]
+                row_contents_error =[identifier,name,'error',href]
                 if name in name_column:
                     print('old')
 
@@ -134,11 +139,11 @@ for link in body.find_all('a'):
                             #zu Liste hinzufügen
                     try:
 
-                        with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/stern/stern_linklist_login.csv','a',newline='',encoding="utf-8") as f:
+                        with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/stern/stern_linklist_login.csv','a',newline='',encoding="utf-8") as f:
                                     writer = csv.writer(f)
                                     writer.writerow(row_contents)
                     except:
-                        with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/stern/stern_linklist_login.csv','a',newline='',encoding="utf-8") as f:
+                        with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/stern/stern_linklist_login.csv','a',newline='',encoding="utf-8") as f:
                                     writer = csv.writer(f)
                                     writer.writerow(row_contents_error)
                     try:
@@ -146,21 +151,21 @@ for link in body.find_all('a'):
                         html_id = driver.page_source
                         print(text_from_html(html_id))
                         article = text_from_html(html_id)
-                        with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Files/stern/Test/%s.txt' % name,'w', encoding="utf-8") as e:
+                        with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Files/stern/Login/'+identifier+'.txt','w', encoding="utf-8") as e:
                             e.write(article)
-
+                            running_number = running_number +1
 
                     except Exception as e:
                         print(e)
                         try:
-                            with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/stern/stern_error.csv','a',newline='',encoding="utf-8") as file_error:
+                            with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/stern/stern_error_login.csv','a',newline='',encoding="utf-8") as file_error:
                                 writer_error = csv.writer(file_error)
                                 writer_error.writerow(name,d2,href,'no')
                         except:
-                                with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/stern/stern_error.csv','w', newline='',encoding='utf-8') as file_error:
+                                with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/stern/stern_error_login.csv','w', newline='',encoding='utf-8') as file_error:
                                     writer_error = csv.writer(file_error,delimiter=',')
                                     writer_error.writerow(['Headline','Date','Link','Download'])
                                     writer_error.writerow([name,d2,href,'no'])
                         continue
-
 driver.close()
+

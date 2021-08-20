@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 #from selenium.webdriver.common.keys import Keys
-PATH = "C:\Program Files (x86)\chromedriver.exe"
+PATH = "C:\DRIVERS\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 
 ###IMPORT
@@ -79,8 +79,9 @@ today = date.today()
 print("Today's date:", today)
 
 d2 = today.strftime("%e. %B %Y")
-#print("d2 =", d2)
 print(str(d2))
+d3 = today.strftime("%Y%m%d")
+print(d3)
 
 driver.get('https://secure.mypass.de/sso/web/login?service=https%3A%2F%2Fwww.welt.de%2F')
 driver.find_element_by_xpath('/html/body/div/div/form/div[1]/div/div[1]/div/input').send_keys('carlo.bartsch@hsu-hh.de')
@@ -95,46 +96,40 @@ WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/bod
 time.sleep(5)
 driver.switch_to.default_content()
 driver.switch_to.active_element
-
-
-#HTML
 pages = ['','politik/','wirtschaft/']
 for element in pages:
 
-
     try:
         data=[]
-        with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/welt/welt_linklist_login.csv',encoding='utf-8') as f:
+        with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/welt/welt_linklist_login.csv',encoding='utf-8') as f:
                 reader = csv.reader(f, delimiter=',')
                 for row in reader:
                         data.append(row)
 
     except:
-        with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/welt/welt_linklist_login.csv','w', newline='',encoding='utf-8') as f:
+        with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/welt/welt_linklist_login.csv','w', newline='',encoding='utf-8') as f:
                     writer = csv.writer(f,delimiter=',')
-                    writer.writerow(['Headline','Date','Link'])
+                    writer.writerow(['ID','Headline','Date','Link'])
         data=[]
 
     driver.get('https://www.welt.de/'+element)
     html = driver.page_source
     soup = bs(html, 'html.parser')
     body = soup.find('body')
+    running_number = 1
+    print(data)
     href_column = [x[2] for x in data]
     for link in body.find_all('a'):
-                    href = link.get('href')
-                    #print(href)
+                    href = link.get('href')                    
                     listToCheck = ['reise','sport','/gesundheit/','/kultur/','/videos/','/icon/','/gutscheine','/podcasts/','/weinshop','/services/','/aaps/','/spiele/','/mediathek/','/sponsored/','/Advertorials/']
-
-
                     whole_link = 'https://www.welt.de/' + str(href)
                     print(whole_link)
-
                     name = link.text
-                    name = replaceMultiple(name,["'",'[',']','.',':','?','!','"','/',',','.','-','“','„'],"")
+                    name = replaceMultiple(name,["'",'[',']','.',':','?','!','"','/',',','.','-','“','„','«','»'],"")
                     print(name)
-
-                    row_contents =[name,d2,href]
-                    row_contents_error =['error',d2,'error']
+                    identifier = str(d3)+str(running_number)
+                    row_contents =[identifier,name,d2,href]
+                    row_contents_error =[identifier,name,'error',href]
                     if href in href_column:
                         print('old')
 
@@ -143,11 +138,11 @@ for element in pages:
                             #zu Liste hinzufügen
                         try:
 
-                            with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/welt/welt_linklist_login.csv','a',newline='',encoding="utf-8") as f:
+                            with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/welt/welt_linklist_login.csv','a',newline='',encoding="utf-8") as f:
                                         writer = csv.writer(f)
                                         writer.writerow(row_contents)
                         except:
-                            with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/welt/welt_linklist_login.csv','a',newline='',encoding="utf-8") as f:
+                            with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/welt/welt_linklist_login.csv','a',newline='',encoding="utf-8") as f:
                                         writer = csv.writer(f)
                                         writer.writerow(row_contents_error)
                         if any(ext in href for ext in listToCheck):
@@ -159,21 +154,21 @@ for element in pages:
                                 html_id = driver.page_source
                                 print(text_from_html(html_id))
                                 article = text_from_html(html_id)
-                                with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Files/welt/Test/%s.txt' % name,'w', encoding="utf-8") as e:
+                                with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Files/welt/Login/'+identifier+'.txt','w', encoding="utf-8") as e:
                                     e.write(article)
-
+                                    running_number = running_number +1
 
                             except Exception as e:
                                 print(e)
                                 try:
-                                    with open(r'C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/welt/welt_error.csv','a',newline='',encoding="utf-8") as file_error:
+                                    with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/welt/welt_error_login.csv','a',newline='',encoding="utf-8") as file_error:
                                         writer_error = csv.writer(file_error)
                                         writer_error.writerow(name,d2,href,'no')
                                 except:
-                                    with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Helpfiles Skript/welt/welt_error.csv','w', newline='',encoding='utf-8') as file_error:
+                                    with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/welt/welt_error_login.csv','w', newline='',encoding='utf-8') as file_error:
                                         writer_error = csv.writer(file_error,delimiter=',')
                                         writer_error.writerow(['Headline','Date','Link','Download'])
                                         writer_error.writerow([name,d2,href,'no'])
                                 continue
-
 driver.close()
+
