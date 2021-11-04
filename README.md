@@ -1,4 +1,5 @@
 # Online News Diversity
+## Einleitung
 Die verschiedenen Scraping-Files enthalten jeweils den Code zum scrapen einer Online-Nachrichten-Seite. Das Untersuchungsziel liegt hierbei auf einer Gegenüberstellung von Öffentlich-rechtlichem-Rundfunk (ÖRR) und privaten Medienanstalten, jedoch lassen sich die Daten auch für andere Zwecke, z.B. Berechnung eines Media Bias benutzen. Für jedes Medium liegen demnach mehrere tausend Nachrichtenartikel und zusätzliche Metadaten vor. Die genaue vorgehensweise zur Datenerhebung und -aufbereitung wird später im Unterpunkt Scraping-Skript beschrieben. Zusammengenommen ergibt sich eine Datensammlung von 18 Medien über einen Zeitraum von mehreren Monaten. (hier genauer) 
 
 Mit Hilfe der einzelnen Artikel lassen sich mittels Textmining vrschiedene Analysen durchführen und Kennzahlen berechnen. Hierzu zählen Sentiment-Analyse, Topic-Modelling, Komplexitätsanalyse sowie Kennzhalen über Textlänge, Artikelanzahl, Rubriken, Veröffentlichungsdatum. 
@@ -7,7 +8,7 @@ Dien einzelnen Schritte vom Download der Daten bis zur Erstellung des fertigen D
 
 Ein genauerer Überblick findet sich hier: https://github.com/CarloBartsch/OnlineNewsDiversity/blob/main/Vortrag%20zum%20Expose.pdf
 
-# Scraping
+## Scraping
 Anhand des Scraping-Skriptes der Spiegel-Website, werden exemplarisch die einzelnen Punkte des Skriptes erklärt. Sämtliche Skripte basieren auf der gleichen Vorlage und weichen nur aufgrund des unterschiedlichen Aufbaus der einzelenn Websites ab. Die Skripte sind in Python geschrieben. Eine genauere Anleitung zu Download, Installtion und Einrichtung von Python ist unter folgenden Links zu finden: 
 
 https://www.python.org/downloads/
@@ -97,7 +98,7 @@ print(str(d2))
 d3 = today.strftime("%Y%m%d")
 print(d3)
 ```
-Ermittlung des jeweiligen Downloaddatums und Datumsfromatierung, z.B. d2 = 20211104 (Jahr, Monat, Tag) und d3 = 20211104104029 (Jahr, Monat, Tag, Stunden, Minuten, Sekunden). Werden später zur Berechnung einer laufenden Nummer und als Metadaten benutzt.
+Ermittlung des jeweiligen Downloaddatums und Datumsfromatierung, z.B. d2 = 20211104 (Jahr, Monat, Tag) und d3 = 20211104104029 (Jahr, Monat, Tag, Stunden, Minuten, Sekunden). Beide Datumswerte werden später zur Berechnung einer laufenden Nummer und als Metadaten benutzt.
 ```
 website = requests.get('https://www.spiegel.de/').text
 html = BeautifulSoup(website,'lxml')
@@ -123,6 +124,10 @@ except Exception as e :
                 #reader = csv.reader(f, delimiter=',')
                 #for row in reader:
                     #data.append(row)
+```
+Zunächst probiert das Skript auf ein bestehendes CSV-Files zuzugreifen, sollte bereits ein CSV bestehen, dann werden anschließend sämtliche Links zu den einzelnen Nachrichtenartikeln in diesem File gespeichert. Wenn es sich um den ersten Durchlauf des Skriptes handelt, dann wird ein neues CSV erstellt und anschließend zur Speicherung der Links benutzt. Neben dem Link enthält das CSV-File eine laufende Nummer zu jedem Artikel (ID), die Schlagzeile (Headline) und das Datum (Date). 
+
+```                    
 running_number = 1
 print(data)
 href_column = [x[2] for x in data]
@@ -192,4 +197,4 @@ for link in body.find_all('a'):
                                         writer_error.writerow(['Headline','Date','Link','Download'])
                                         writer_error.writerow([name,d2,href,'no'])
                                 continue
-````
+```
