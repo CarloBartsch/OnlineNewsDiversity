@@ -35,6 +35,7 @@ import datetime
 from csv import writer
 from bs4.element import Comment
 import urllib.request
+import lovely_logger as log
 ````
 Importieren der einzelnen Module. Sollten die Module nicht in Python enthalten sein, so müssen dies zuvor installiert werden. Hierzu in der Windowsconsole "pip install modul-name" eingeben. z.B. "pip install BeautifulSoup". Mehr hierzu unter:
 https://packaging.python.org/tutorials/installing-packages/
@@ -97,8 +98,28 @@ d2 = today.strftime("%e. %B %Y")
 print(str(d2))
 d3 = today.strftime("%Y%m%d")
 print(d3)
+d4 = now.strftime("%Y%m%d%H%M%S")
+print(d4)
 ```
-Ermittlung des jeweiligen Downloaddatums und Datumsfromatierung, z.B. d2 = 20211104 (Jahr, Monat, Tag) und d3 = 20211104104029 (Jahr, Monat, Tag, Stunden, Minuten, Sekunden). Beide Datumswerte werden später zur Berechnung einer laufenden Nummer und als Metadaten benutzt.
+Ermittlung des jeweiligen Downloaddatums und Datumsfromatierung, z.B. d2 = 20211104 (Jahr, Monat, Tag) und d4 = 20211104104029 (Jahr, Monat, Tag, Stunden, Minuten, Sekunden). Beide Datumswerte werden später zur Berechnung einer laufenden Nummer und als Metadaten benutzt.
+```
+#Logging
+
+
+log.init('C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/bild/Logs/'+d4+'.log')
+
+log.debug('here are the in-scope variables right now: %s', dir())
+log.info('%s v1.2 HAS STARTED', __file__)
+log.warning('here is a warning message')
+log.error('generally you would use error for handled exceptions which prevent further execution')
+log.critical('generally you would use critical for uncaught exceptions')
+```
+Erstellen und speichern eines Log-Files zur Fehlerbehebung
+
+
+
+
+
 ```
 website = requests.get('https://www.spiegel.de/').text
 html = BeautifulSoup(website,'lxml')
@@ -160,7 +181,7 @@ for link in body.find_all('a'):
 ```
 Loop zur Abfrage der einzelnen Downloaddinks (href) und der Schlagzeilen (name), sowie entfernen von Sonderzeichen, Satzzeichen usw..
 ```
-                        identifier = str(d3)+str(running_number)
+                        identifier = str(d4)+str(running_number)
 ```
 Erstellen einer eindeutigen Nummer (ID) aus Datum, Uhrzeit (d3) und der laufenden Nummer. 
 ```
