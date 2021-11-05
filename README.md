@@ -104,7 +104,7 @@ website = requests.get('https://www.spiegel.de/').text
 html = BeautifulSoup(website,'lxml')
 body = html.find('body')
 ```
-Abfrage an der Website im HTML-Format. "Body" repräsentiert dabei den Inhalt einer Website aber nicht deren Layout, welche im "header" beschrieben werden. Sowohl "body" als auch "header" sind einzigartig und können daher gezielt abgefragt werden. Mehr hierzu unter: 
+Abfrage der Website im HTML-Format. "Body" repräsentiert dabei den Inhalt einer Website aber nicht deren Layout, welche im "header" beschrieben werden. Sowohl "body" als auch "header" sind einzigartig und können daher gezielt abgefragt werden. Mehr hierzu unter: 
 https://developer.mozilla.org/de/docs/Learn/Getting_started_with_the_web/HTML_basics
 ```
 try:
@@ -120,15 +120,14 @@ except Exception as e :
                 writer = csv.writer(f ,delimiter=',')
                 writer.writerow(['ID','Headline','Date','Link'])
     data=[]
-    #with open(r'C:\Users\Carlo Bartsch\Documents\Diversity of News\Helpfiles Skript\spiegel.de\sp_linklist.csv',newline='',encoding="latin-1") as f:
-                #reader = csv.reader(f, delimiter=',')
-                #for row in reader:
-                    #data.append(row)
 ```
-Zunächst probiert das Skript auf ein bestehendes CSV-Files zuzugreifen, sollte bereits ein CSV bestehen, dann werden anschließend sämtliche Links zu den einzelnen Nachrichtenartikeln in diesem File gespeichert. Wenn es sich um den ersten Durchlauf des Skriptes handelt, dann wird ein neues CSV erstellt und anschließend zur Speicherung der Links benutzt. Neben dem Link enthält das CSV-File eine laufende Nummer zu jedem Artikel (ID), die Schlagzeile (Headline) und das Datum (Date). 
+Zunächst versucht das Skript auf ein bestehendes CSV-Files zuzugreifen, sollte bereits ein CSV bestehen, dann werden anschließend sämtliche Links zu den einzelnen Nachrichtenartikeln in diesem File gespeichert. Wenn es sich um den ersten Durchlauf des Skriptes handelt und dementsprechend noch kein CV existiert, dann wird ein neues CSV erstellt und anschließend zur Speicherung der Downloadlinkslinks benutzt. Neben dem Link enthält das CSV-File eine laufende Nummer zu jedem Artikel (ID), die Schlagzeile (Headline) und das Datum (Date). 
 
 ```                    
 running_number = 1
+```
+Start der laufenden Nummer zur Nummerierung der einzelnen Artikel
+```
 print(data)
 href_column = [x[2] for x in data]
 
@@ -158,6 +157,7 @@ for link in body.find_all('a'):
                         #name = name.replace('–','')
                         print(href)
                         print(name)
+```                        
                         identifier = str(d3)+str(running_number)
                         row_contents =[identifier,name,d2,href]
                         row_contents_error =[identifier,name,'error',href]
