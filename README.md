@@ -20,7 +20,7 @@ https://docs.python.org/3/using/windows.html
 https://realpython.com/installing-python/
 
 https://www.youtube.com/watch?v=YYXdXT2l-Gg
-Hinweis: Sämtliche "print()" Befehle dienen lediglich der Überprüfung und Suche von Bugs, sind jedoch für die eigentliche Scraping-Funktionalität des Skriptes redundant, weshalb im Folgenden nicht genauer auf die print-Befehle eingegangen wird.
+Hinweis: Sämtliche "print()" Befehle dienen lediglich der Überprüfung und Suche von Bugs, sind jedoch für die eigentliche Scraping-Funktionalität des Skriptes redundant, weshalb im Folgenden nicht genauer auf die print-Befehle eingegangen wird. Kommentar sind durch ein # zu erkennen und dienen lediglich der Beschreibung einzelner Funktionen und Abschnitte des Skriptes.
 ````
 import requests, re, csv, os
 from bs4 import BeautifulSoup
