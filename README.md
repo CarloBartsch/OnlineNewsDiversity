@@ -157,16 +157,27 @@ for link in body.find_all('a'):
                         #name = name.replace('–','')
                         print(href)
                         print(name)
-```                        
+```
+Loop zur Abfrage der einzelnen Downloaddinks (href) und der Schlagzeilen (name), sowie entfernen von Sonderzeichen, Satzzeichen usw..
+```
                         identifier = str(d3)+str(running_number)
+```
+Erstellen einer eindeutigen Nummer (ID) aus Datum, Uhrzeit (d3) und der laufenden Nummer. 
+```
                         row_contents =[identifier,name,d2,href]
                         row_contents_error =[identifier,name,'error',href]
+```
+"row_contents" ergeben später die einzelnen Zeilen pro Artikel des CSV-Files.
+```
                         if href in href_column:
                             print('old')
 
                         else:
                             print('new')
                             #zu Liste hinzufügen
+```
+Falls ein Link bereits im CSV enthalten ist (neuer Link = alter Link), dann wird der Artikel übersprungen, andernfalls wird der Artikel gedownloadet.
+```
                             try:
                                 with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/spiegel/h_sp_linklist.csv','a',newline='',encoding="utf-8") as f:
                                     writer = csv.writer(f)
