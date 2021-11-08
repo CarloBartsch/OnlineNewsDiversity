@@ -101,7 +101,7 @@ print(d3)
 d4 = now.strftime("%Y%m%d%H%M%S")
 print(d4)
 ```
-Ermittlung des jeweiligen Downloaddatums und Datumsfromatierung, z.B. d2 = 20211104 (Jahr, Monat, Tag) und d4 = 20211104104029 (Jahr, Monat, Tag, Stunden, Minuten, Sekunden). Beide Datumswerte werden später zur Berechnung einer laufenden Nummer und als Metadaten benutzt.
+Ermittlung des jeweiligen Downloaddatums und der Datumsfromatierung, z.B. d2 = 20211104 (Jahr, Monat, Tag) und d4 = 20211104104029 (Jahr, Monat, Tag, Stunden, Minuten, Sekunden). Beide Datumswerte werden später zur Berechnung einer laufenden Nummer und als Metadaten benutzt.
 ```
 #Logging
 
