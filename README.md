@@ -209,15 +209,24 @@ Falls ein Link bereits im CSV enthalten ist (neuer Link = alter Link), dann wird
                                     writer = csv.writer(f)
                                     writer.writerow(row_contents_error)
                                     print('error')
-
+```
+Nicht alle als Downloadlinks enthalten auch einen Artikel bzw. können gedownloadet werden. Um vollständige Liste zu erhalten, werden aber sämtliche Liks gespeichert (siehe CSV-File), entweder mit den Metadaten des Artikels (row_contents) oder als Download-Error (row_contents_error).
+```
                             try:
                                 html = urllib.request.urlopen(href).read()
                                 print(text_from_html(html))
                                 article = text_from_html(html)
                                 with open('C:/Users/Carlo Bartsch/Documents/Diversity of News/Files/spiegel/Homepage/'+identifier+'.txt','w', encoding="utf-8") as e:
                                     e.write(article)
-                                    running_number = running_number +1
+```
+Wenn möglich wird der Artikel gedownloadet und unter angegebenem Pfad abgespeichert. Falls kein Download möglich ist, so wird nochmals ein extra CSV-File mit allen Errors geführt. 
 
+```
+                                    running_number = running_number +1
+```
+Zu der laufenden Nummer wird für den nächsten Durchlauf 1 addiert.
+
+```
                             except:
                                 try:
                                     with open(r'C:/Users/Carlo Bartsch/Documents/Diversity of News/Helpfiles Skript/spiegel/sp_error.csv','a',newline='',encoding="utf-8") as file_error:
