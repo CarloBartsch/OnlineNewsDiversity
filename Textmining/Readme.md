@@ -11,7 +11,7 @@ Zur Berechnung des FRE-Index wurde das Python-Modul [textstat](https://pypi.org/
 Themenanzahl soll ermittelt werden
 
  Bei TopicModelling wird mithilfe eines Logarithmus die Verteilung der Themen über die Anzahl der Artikel ermittel. Herkömmliche Verfahren sind hierbei Latent Semantic Analysis (LSA), Probabilistic Latent Semantic Analysis (PLSA) und Latent Dirichlet Allocation (LDA), welche unter anderem [Alghamdi und Alfalqi (2015)](https://thesai.org/Downloads/Volume6No1/Paper_21-A_Survey_of_Topic_Modeling_in_Text_Mining.pdf) beschrieben werden. Da zur Anwendung der beschriebenen Modelle jedoch eine vorherige Festlegung der Themenanzahl notwendig ist, wurde für die vorliegende Untersuchung eine Hierachical Dirichlet Processes (HDP) Modellierung nach [Teh et al. (2015)](https://www.jstor.org/stable/pdf/27639773.pdf) benutzt, welche neben der Vertielung der Themen auch die Anzahl der Themen automatisch bestimmt. 
- Innerhalb Pythons wurde das Modul [tomotopy](https://pypi.org/project/tomotopy/) benutzt. 
+ Innerhalb Pythons wurde das Modul [tomotopy](https://pypi.org/project/tomotopy/) benutzt. Neben dem HDP-Modell enthält das Modul auch die weiter oben beschriebenen Modelle und eigenet sich somit zur Gegenüberstellung einzelner Modelle[^1].
 
 ## Sentimentanalyse
 
@@ -20,3 +20,4 @@ Themenanzahl soll ermittelt werden
 
 
 ## 
+[^1]: Für eine detallierte Beschreibung der einzelnen Funktionen eignet sich neben der Dokumentation des Moduls auch das [github-Repositoy von tomotopy](https://bab2min.github.io/tomotopy/v0.12.2/en/).
