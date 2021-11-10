@@ -18,6 +18,7 @@ Themenanzahl soll ermittelt werden
 
 ## Wortzählung
 
+Die Anzahl der Worte stellt lediglich ein einfaches Mittel zur Analyse der Textlänge dar und fließt unter anderem in die Bestimmung zur Lesbarkeit ein.
 
 ## 
 [^1]: Für eine detallierte Beschreibung der einzelnen Funktionen eignet sich neben der Dokumentation des Moduls auch das [github-Repositoy von tomotopy](https://bab2min.github.io/tomotopy/v0.12.2/en/).
