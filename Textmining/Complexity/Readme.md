@@ -1,4 +1,4 @@
-# Lesbarkeitsskript
+# "Complexity_all"-Skript
 
 An dieser Stelle folgt eine kurze Erläuterung des Skriptes zur Ermittlung des FRE-Index.
 ```
