@@ -2,9 +2,14 @@
 Bevor eine Inahaltanalyse bzw. eine Themenmodellierung durchgeführt werden kann, müssen die einzelnen Artikel zunächst in einem Textcorpus, also einer Textsammlung zusammengefasst werden[^1]. 
  
 Wie läuft das in Python ab, wie sieht der Aufbau aus (List of List), Links hierzu
-
-
+Bei der Erstellung eines Korpus innerhalb Pythons, werden sämtliche Artikel einer Website in einer [Liste](https://docs.python.org/3/tutorial/datastructures.html) gespeichert. Es ergeben sich somit n Listen, wobei n die Anzahl der untersuchten Websites darstellt. Die n listen werden dann wiederum in einer Liste gespeichert, wodurch sich eine [Matrix](https://www.geeksforgeeks.org/nested-list-comprehensions-in-python/) ergibt bzw. eine "Liste einer Liste".
+Neben dem matritzenähnlichen Aufbau eines Textkorpus, werden auch innerhalb des jeweiligen Artikels Änderungen vorgenommen, um den Artikel automatiseirt zu analysieren. So werden Umlaute ersetzt, Sonderzeichen, Zahlen und Währungen sowie Stopwörter entfernt, daneben wird eine sogenannte Lemmatisierung vorgenommen, bei der Verben in ihre Grundform überführt werden.
 Skript Links hierzu
+
+```
+import re, csv, os
+```
+Importieren der einzelnen Module.
 
 ```
 #DEFINITIONS
@@ -88,10 +93,11 @@ def lemmatizer(text):
     for word in doc:
         sent.append(word.lemma_)
     return " ".join(sent)
+```
+Definition einiger benutzerdifinierter Funktionen, die im späteren Verlauf benutzt werden. Zur genauen Beschreibung der einzelnen Funktionen siehe hier:
 
+```
 
-
-import re, csv, os
 #Repeat for all Files in Dircetory
 directory = r'C:\Users\admin\Documents\Dissertation\Diversity of News\Files\\bild\Clean'
 corpus =[]
