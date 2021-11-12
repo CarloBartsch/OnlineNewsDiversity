@@ -3,9 +3,6 @@
 An dieser Stelle folgt eine kurze Erläuterung des Skriptes zur Ermittlung des FRE-Index.
 Falls noch nicht geschehen, so müssen die importierten Module, wie bereits beim Scaping-Skript, zuvor in der Kommandozeile, über ["pip install"](https://docs.python.org/3/installing/index.html), z.B. "pip install [textstat](https://pypi.org/project/textstat/)", installiert werden.
 
-#pip istall textstat
-#pip install readability
-
 #Import
 import textstat
 import os, csv, re
