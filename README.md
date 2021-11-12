@@ -37,7 +37,7 @@ from bs4.element import Comment
 import urllib.request
 import lovely_logger as log
 ````
-Importieren der einzelnen Module. Sollten die Module nicht in Python enthalten sein, so müssen dies zuvor installiert werden. Hierzu in der Windowsconsole "pip install modul-name" eingeben. z.B. "pip install BeautifulSoup". Mehr hierzu unter:
+Importieren der einzelnen Module. Sollten die Module nicht in Python enthalten sein, so müssen diese zuvor installiert werden. Hierzu in der Windowsconsole "pip install modul-name" eingeben. z.B. "pip install BeautifulSoup". Mehr hierzu unter:
 https://packaging.python.org/tutorials/installing-packages/
 
 ```
