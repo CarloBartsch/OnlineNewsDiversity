@@ -25,7 +25,7 @@ with open('C:/Users/admin/Documents/Dissertation/Diversity of News/Textmining/Co
             print(items)
             entries = os.listdir('C:/Users/admin/Documents/Dissertation/Diversity of News/Files/'+items+'/Clean')
 ```
-Erstellen eines CSV-Files mit der Struktur Name, Artikel, FRE.
+Erstellen eines CSV-Files mit der Struktur: Name, Artikel, FRE.
 ```
             for line in entries:
                     path = 'C:/Users/admin/Documents/Dissertation/Diversity of News/Files/'+items+'/Clean/'+ line
