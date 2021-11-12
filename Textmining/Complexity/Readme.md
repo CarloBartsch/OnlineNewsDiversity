@@ -1,7 +1,6 @@
 # Lesbarkeitsskript
 
 An dieser Stelle folgt eine kurze Erläuterung des Skriptes zur Ermittlung des FRE-Index.
-Falls noch nicht geschehen, so müssen die importierten Module, wie bereits beim Scaping-Skript, zuvor in der Kommandozeile, über ["pip install"](https://docs.python.org/3/installing/index.html), z.B. "pip install [textstat](https://pypi.org/project/textstat/)", installiert werden.
 
 #Import
 import textstat
@@ -11,7 +10,9 @@ import docx2txt
 import textract
 import pandas as pd
 textstat.set_lang('de')
-
+```
+Importieren der einzelnen Module. Falls noch nicht geschehen, so müssen die zu importierenden Module, wie bereits beim Scaping-Skript, zuvor in der Kommandozeile, über ["pip install"](https://docs.python.org/3/installing/index.html), z.B. "pip install [textstat](https://pypi.org/project/textstat/)", installiert werden.
+```
 #Path and Folders(zdf_nachrichten anspassen!!!)
 folder = ['bild','br','dlf','dw','faz','focus','zdf_nachrichten','mdr','ndr','ntv','pro7','rtl','spiegel','stern','swr','sz','tagesschau','taz','tonline','wdr','welt','zeit']
 
